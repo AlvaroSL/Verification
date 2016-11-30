@@ -1,0 +1,5 @@
+El código en desarrollo se subirá a la rama 'developer', y todos los commits de desarrollo se harán ahí. Cuando el código esté listo, testeado y sea funcional, se incluirá en 'master'. Excepcionalmente se podrán abrir ramas adicionales con propósitos concretos, como probar ideas, implementaciones alternativas etc.
+
+Cualquier miembro del equipo puede publicar y asignar incidencias, y será repsonsabilidad del jefe de proyecto, Hernán González, darlas por válidas, innecesarias o concluidas. En caso de que se genere un número elevado de incidencias, se utilizará el sistema de etiquetado para organizarlas.
+Todas las incidencias que informen de un error en el comportamiento del sistema deberán incluir pasos para reproducir el error, salida esperada y salida obtenida. 
+Cuando una incidencia sea marcada como resuelta, un colaborador diferente al que la resolvió revisará que la solución sea correcta.
