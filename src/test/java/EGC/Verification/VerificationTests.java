@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.KeyPair;
 import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.spec.InvalidKeySpecException;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
@@ -107,6 +110,30 @@ public class VerificationTests {
 		byte[] res = clase.getMD5("Esto es una prueba");
 		boolean comprobacion = clase.checkVoteDes(texto, res);
 		assertFalse("Votacion amañada", comprobacion);
+	}
+	
+	//añadidos en el trabajo de 2016/17
+	
+	@Test
+	public void testPrivKeyStringConversion() throws NoSuchAlgorithmException, InvalidKeySpecException{
+		KeyPair keys = AuxClass.returnKeysRSA();
+		PrivateKey k = keys.getPrivate();
+		
+		String s = EntryPoint.keyToString(k);
+		PrivateKey k2 = EntryPoint.stringToPrivKey(s);
+		
+		assertEquals(k, k2);
+	}
+	
+	@Test
+	public void testPubKeyStringConversion() throws InvalidKeySpecException, NoSuchAlgorithmException{
+		KeyPair keys = AuxClass.returnKeysRSA();
+		PublicKey k = keys.getPublic();
+		
+		String s = EntryPoint.keyToString(k);
+		PublicKey k2 = EntryPoint.stringToPubKey(s);
+		
+		assertEquals(k, k2);
 	}
 
 }

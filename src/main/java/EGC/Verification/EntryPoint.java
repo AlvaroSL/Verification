@@ -17,7 +17,9 @@ import java.security.spec.X509EncodedKeySpec;
 //-dando Next hasta la ultima pagina: Select the class of the application entry point:Browse y se marca esta clase.
 //-Finish.
 public class EntryPoint {
-
+	
+	
+	
 	public static void main(String[] args) {
 		try{
 			switch(args[0]){
@@ -41,7 +43,7 @@ public class EntryPoint {
 	}
 	
 	//Genera un string parseable por stringToPrivKey y stringToPubKey
-	private static String privKeyToString(Key key){
+	public static String keyToString(Key key){
 		byte[] bytes = key.getEncoded();
 		String res = "";
 		
@@ -54,7 +56,7 @@ public class EntryPoint {
 		return res;
 	}
 	
-	private static PrivateKey stringToPrivKey(String in) throws NoSuchAlgorithmException, InvalidKeySpecException{
+	public static PrivateKey stringToPrivKey(String in) throws NoSuchAlgorithmException, InvalidKeySpecException{
 		KeyFactory kf = KeyFactory.getInstance("RSA");
 		byte[] prvBytes = in.getBytes();
 		
@@ -64,7 +66,7 @@ public class EntryPoint {
 		return res;
 	}
 	
-	private static PublicKey stringToPubKey(String in) throws InvalidKeySpecException, NoSuchAlgorithmException{
+	public static PublicKey stringToPubKey(String in) throws InvalidKeySpecException, NoSuchAlgorithmException{
 		
 		KeyFactory kf = KeyFactory.getInstance("RSA");
 		byte[] pubBytes = in.getBytes();
