@@ -1,6 +1,13 @@
 package EGC.Verification;
 
-public class Interface {
+//para exportar .jar ejecutable:
+//-clic derecho en el proyecto en eclipse
+//-Exportar
+//-en el selector de export wizard, Java>JAR file
+//-Select the export destination: <camino>/verification.jar
+//-dando Next hasta la ultima pagina: Select the class of the application entry point:Browse y se marca esta clase.
+//-Finish.
+public class EntryPoint {
 
 	public static void main(String[] args) {
 		try{
@@ -18,7 +25,8 @@ public class Interface {
 				showHelp();
 				break;
 			}
-		}catch(ArrayIndexOutOfBoundsException e){
+		}
+		catch(ArrayIndexOutOfBoundsException e){
 			showHelp();
 		}
 	}
