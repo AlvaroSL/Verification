@@ -1,5 +1,14 @@
 package EGC.Verification;
 
+import java.security.Key;
+import java.security.KeyFactory;
+import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.X509EncodedKeySpec;
+
 //para exportar .jar ejecutable:
 //-clic derecho en el proyecto en eclipse
 //-Exportar
@@ -29,6 +38,41 @@ public class EntryPoint {
 		catch(ArrayIndexOutOfBoundsException e){
 			showHelp();
 		}
+	}
+	
+	//Genera un string parseable por stringToPrivKey y stringToPubKey
+	private static String privKeyToString(Key key){
+		byte[] bytes = key.getEncoded();
+		String res = "";
+		
+		for(byte b : bytes){
+			res += (char) (b & 0xFF);
+			//esto toma cada byte del array, lo convierte a char y lo añade al final de la string
+			//fuente: http://stackoverflow.com/questions/17912640/byte-and-char-conversion-in-java
+		}
+		
+		return res;
+	}
+	
+	private static PrivateKey stringToPrivKey(String in) throws NoSuchAlgorithmException, InvalidKeySpecException{
+		KeyFactory kf = KeyFactory.getInstance("RSA");
+		byte[] prvBytes = in.getBytes();
+		
+		PrivateKey res = kf.generatePrivate(new PKCS8EncodedKeySpec(prvBytes));
+		//fuente: http://stackoverflow.com/questions/19818550/java-retrieve-the-actual-value-of-the-public-key-from-the-keypair-object
+		
+		return res;
+	}
+	
+	private static PublicKey stringToPubKey(String in) throws InvalidKeySpecException, NoSuchAlgorithmException{
+		
+		KeyFactory kf = KeyFactory.getInstance("RSA");
+		byte[] pubBytes = in.getBytes();
+		
+		PublicKey res = kf.generatePublic(new X509EncodedKeySpec(pubBytes));
+		//fuente: http://stackoverflow.com/questions/19818550/java-retrieve-the-actual-value-of-the-public-key-from-the-keypair-object
+		
+		return res;
 	}
 	
 	private static void showHelp(){
