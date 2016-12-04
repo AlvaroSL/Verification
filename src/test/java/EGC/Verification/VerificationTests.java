@@ -29,88 +29,193 @@ public class VerificationTests {
 	public void tearDown() throws Exception {
 	}
 
-//	@Test
-//	public void testCheckVoteRSA() throws NoSuchAlgorithmException, IOException {
-//		AuthorityImpl clase = new AuthorityImpl();
-//		KeyPair keys = clase.getKeysRsa();
-//		byte[] votoCifrado = clase.encryptRSA(keys, "Esto es una prueba");
-//		boolean comprobacion = clase.checkVoteRSA(votoCifrado, keys);
-//		assertTrue("Votacion amañada", comprobacion);
-//	}
+	//actualizados en el trabajo de 2016/17
+	
+	@Test
+	public void testGetKeysRsa() {
+		System.out.println("==========================================================");
+		System.out.println("=================TEST 1 (GENERAR KEYS RSA)================");
+		System.out.println("==========================================================");
+		System.out.println("");
+		
+		KeyPair keys = RSAUtils.returnKeysRSA();
+		System.out.println("----------------------------KEYS--------------------------");
+		System.out.println("-------------Son las keys que hemos generado--------------");
+		System.out.println("Key privada: " + keys.getPrivate());
+		System.out.println("Key publica: " + keys.getPublic());
+		assertNotNull(keys.getPublic());
+		System.out.println("");
+	}
+	
+	@Test
+	public void testGetKeyDes() {
+		System.out.println("==========================================================");
+		System.out.println("=================TEST 2 (KEY PRIVADA DES)=================");
+		System.out.println("==========================================================");
+		System.out.println("");
+		
+		System.out.println("----------------Es la key privada generada----------------");
+		SecretKey key = RSAUtils.returnKeyDes();
+		System.out.println("Key privada: " +key);
+		assertNotNull(key);
+		System.out.println("");
+	}
 
-//	@Test
-//	public void testEncryptRSA() throws NoSuchAlgorithmException, IOException {
-//		AuthorityImpl clase = new AuthorityImpl();
-//		KeyPair keys = clase.getKeysRsa();
-//		byte[] res = clase.encryptRSA(keys, "Esto es una prueba");
-//		assertNotNull(res);
-//	}
+	
+	@Test
+	public void testCheckVoteRSA() throws NoSuchAlgorithmException, IOException {
+		System.out.println("==========================================================");
+		System.out.println("===============TEST 3 (COMPROBAR VOTES RSA)===============");
+		System.out.println("==========================================================");
+		System.out.println("");
+		
+		KeyPair keys = RSAUtils.returnKeysRSA();
+		KeyPair keysAuxiliar = RSAUtils.returnKeysRSA();
+		byte[] votoCifrado = RSAUtils.encryptRSA(keys, "Esto es una prueba");
+		boolean comprobacion = RSAUtils.checkVoteRSA(votoCifrado, keys);
+		boolean comprobacionAuxiliar = RSAUtils.checkVoteRSA(votoCifrado, keysAuxiliar);
+		System.out.println("---------------------------KEYS---------------------------");
+		System.out.println("------Son las keys con las que hemos creado el voto-------");
+		System.out.println("Key privada: " + keys.getPrivate());
+		System.out.println("Key publica: " + keys.getPublic());
+		System.out.println("");
+		System.out.println("--Keys creadas para la comprobación errónea del checkKey--");
+		System.out.println("Key privada: " + keysAuxiliar.getPrivate());
+		System.out.println("Key publica: " + keysAuxiliar.getPublic());
+		System.out.println("----------------------Resultados--------------------------");
+		System.out.println("Comprobación con las keys correctas");
+		if(comprobacion)
+			System.out.println("Votación correcta");
+		else 
+			System.out.println("Votación amañada");
+		System.out.println("Comprobación con las keys incorrectas");
+		if(comprobacionAuxiliar)
+			System.out.println("Votación correcta");
+		else 
+			System.out.println("Votación amañada");
+		System.out.println("");
+	}
 
-//	@Test
-//	public void testDecryptRSA() throws NoSuchAlgorithmException, IOException, BadPaddingException {
-//		AuthorityImpl clase = new AuthorityImpl();
-//		KeyPair keys = clase.getKeysRsa();
-//		byte[] res = clase.encryptRSA(keys, "Esto es una prueba");
-//		String fin = clase.decryptRSA(keys, res);
-//		assertNotNull(fin);
-//	}
+	@Test
+	public void testEncryptRSA() throws NoSuchAlgorithmException, IOException {
 
-//	@Test
-//	public void testGetKeyDes() {
-//		AuthorityImpl clase = new AuthorityImpl();
-//		SecretKey key = clase.getKeyDes();
-//		assertNotNull(key);
-//	}
+		System.out.println("==========================================================");
+		System.out.println("==================TEST 4 (ENCRIPTAR RSA)==================");
+		System.out.println("==========================================================");
+		System.out.println("");
+		
+		KeyPair keys = RSAUtils.returnKeysRSA();
+		byte[] res = RSAUtils.encryptRSA(keys, "Esto es una prueba");
+		System.out.println("----------------------------KEYS--------------------------");
+		System.out.println("--Son las keys con las que hemos encriptado el voto--");
+		System.out.println("Key privada: " + keys.getPrivate());
+		System.out.println("Key publica: " + keys.getPublic());
+		System.out.println("----------------------Resultados--------------------------");
+		System.out.println("Voto encriptado: " + new String(res));
+		System.out.println("");
+	}
 
-//	@Test
-//	public void testGetKeysRsa() {
-//		AuthorityImpl clase = new AuthorityImpl();
-//		KeyPair keys = clase.getKeysRsa();
-//		assertNotNull(keys.getPublic());
-//	}
+	@Test
+	public void testDecryptRSA() throws NoSuchAlgorithmException, IOException, BadPaddingException {
+		System.out.println("==========================================================");
+		System.out.println("=================TEST 5 (DESENCRIPTAR RSA)================");
+		System.out.println("==========================================================");
+		System.out.println("");
+		
+		KeyPair keys = RSAUtils.returnKeysRSA();
+		String entrada="Esto es una prueba";
+		byte[] res = RSAUtils.encryptRSA(keys, entrada);
+		System.out.println("----------------------------KEYS--------------------------");
+		System.out.println("----Son las keys con las que hemos encriptado el voto-----");
+		System.out.println("Key privada: " + keys.getPrivate());
+		System.out.println("Key publica: " + keys.getPublic());
+		System.out.println("----------------------Resultados--------------------------");
+		System.out.println("Voto entrada: " + entrada);
+		System.out.println("Encriptamos...");
+		System.out.println("Voto encriptado :" + new String(res));
+		System.out.println("Desencriptamos...");
+		String finCorrecto = RSAUtils.decryptRSA(keys, res);
+		System.out.println("Voto desencriptado: " + finCorrecto);
+		System.out.println("");
+	
+		
+	}
 
-//	@Test
-//	public void testEncryptDES() throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, IOException {
-//		AuthorityImpl clase = new AuthorityImpl();
-//		SecretKey key = clase.getKeyDes();
-//		byte[] enc = clase.encryptDES(key, "Esto es una prueba");
-//		assertNotNull(enc);
-//		System.out.println("Encriptado en DES: Esto es una prueba -> " + new String(enc));
-//	}
+	@Test
+	public void testEncryptDES() throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, IOException {
+		System.out.println("==========================================================");
+		System.out.println("==================TEST 6 (ENCRIPTAR DES)==================");
+		System.out.println("==========================================================");
+		System.out.println("");
+		
+		System.out.println("----------------Es la key privada generada----------------");
+		SecretKey key = RSAUtils.returnKeyDes();
+		String entrada="Esto es una prueba";
+		System.out.println("Key privada: " +key);
+		assertNotNull(key);
+		System.out.println("----------------------Resultados--------------------------");
+		System.out.println("Voto de entrada: " + entrada);
+		byte[] enc = RSAUtils.encryptDES(key, entrada);
+		assertNotNull(enc);
+		System.out.println("Voto encriptado: " + new String(enc));
+		System.out.println("");
+	}
 
-//	@Test
-//	public void testDecryptDES() throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, IOException {
-//		AuthorityImpl clase = new AuthorityImpl();
-//		SecretKey key = clase.getKeyDes();
-//		byte[] enc = clase.encryptDES(key,"Esto es una prueba");
-//		String fin = clase.decryptDES(key, enc);
-//		assertNotNull(fin);
-//		System.out.println("Desencriptado en DES: " + new String(enc) + " -> " + fin);
-//	}
+	@Test
+	public void testDecryptDES() throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, IOException {
+		System.out.println("==========================================================");
+		System.out.println("=================TEST 7 (DESENCRIPTAR DES)================");
+		System.out.println("==========================================================");
+		System.out.println("");
 
-//	@Test
-//	public void testGetMD5() {
-//		AuthorityImpl clase = new AuthorityImpl();
-//		byte[] res = clase.getMD5("Esto es una prueba");
-//		assertNotNull(new String(res));
-//	}
+		System.out.println("----------------Es la key privada generada----------------");
+		SecretKey key = RSAUtils.returnKeyDes();
+		System.out.println("Key privada: " +key);
+		System.out.println("----------------------Resultados--------------------------");
+		String entrada= "Esto es una prueba";
+		System.out.println("Voto entrada: " + entrada);
+		System.out.println("Encriptamos...");
+		byte[] enc = RSAUtils.encryptDES(key,entrada);
+		System.out.println("Voto encriptado :" + new String(enc));
+		System.out.println("Desencriptamos...");
+		String fin = RSAUtils.decryptDES(key, enc);
+		assertNotNull(fin);
+		System.out.println("Voto desencriptado: " + new String(fin));
+		System.out.println("");
+	
+	}
 
-//	@Test()
-//	public void testGetSHA1() {
-//		AuthorityImpl clase = new AuthorityImpl();
-//		String s1 = "esto es una prueba";
-//		byte[] res = clase.getSHA1(s1);
-//		assertNotNull(new String(res));
-//	}
+	@Test
+	public void testGetMD5() {
+		System.out.println("==========================================================");
+		System.out.println("====================TEST 8 (HASHCODE MD5)=================");
+		System.out.println("==========================================================");
+		System.out.println("");
+		
+		String entrada="Esto es una prueba";
+		byte[] res = RSAUtils.getHashCodeMD5(entrada);
+		System.out.println("String entrada: " + entrada);
+		System.out.println("Encriptamos...");
+		System.out.println("String salida: " + new String(res));
+		assertNotNull(new String(res));
+		System.out.println("");
+	}
 
-//	@Test
-//	public void testCheckVoteDes() {
-//		AuthorityImpl clase = new AuthorityImpl();
-//		String texto = "Esto es una prueba";
-//		byte[] res = clase.getMD5("Esto es una prueba");
-//		boolean comprobacion = clase.checkVoteDes(texto, res);
-//		assertFalse("Votacion amañada", comprobacion);
-//	}
+	@Test()
+	public void testGetSHA1() {
+		System.out.println("==========================================================");
+		System.out.println("====================TEST 9 (HASHCODE SHA)=================");
+		System.out.println("==========================================================");
+		System.out.println("");
+		
+		String entrada = "Esto es una prueba";
+		byte[] res = RSAUtils.getHashCodeSHA(entrada);
+		System.out.println("String entrada: " + entrada);
+		System.out.println("Encriptamos...");
+		System.out.println("String salida: " + new String(res));
+		assertNotNull(new String(res));
+		System.out.println("");
+	}
 	
 	//añadidos en el trabajo de 2016/17
 	
