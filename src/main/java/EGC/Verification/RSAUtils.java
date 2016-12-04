@@ -15,7 +15,7 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 
-public class AuxClass {
+public class RSAUtils {
 	
 	//funcion resumen con md5 (text indica el texto que se le aplicara la función resumen)
 	//hay que pasarle el texto, no el atajo
