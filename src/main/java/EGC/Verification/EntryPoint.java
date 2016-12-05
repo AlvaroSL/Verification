@@ -29,9 +29,7 @@ public class EntryPoint {
 				break;
 			case "decipher":
 				break;
-			case "pubKey":
-				break;
-			case "privKey":
+			case "keys":
 				break;
 			default:
 			case "help":
@@ -51,8 +49,7 @@ public class EntryPoint {
 		System.out.println("help                         Muestra esta pagina de ayuda");
 		System.out.println("cipher <dato> <clave>        Cifra <dato> usando la clave publica <clave> mediante RSA");
 		System.out.println("decipher <cifrado> <clave>   Descifra <cifrado> usando la clave privada <clave> mediante RSA");
-		System.out.println("privKey                      Genera una clave privada RSA");
-		System.out.println("pubKey                       Genera una clave publica RSA");
+		System.out.println("keys                         Genera un par de claves RSA");
 	}
 	
 }
