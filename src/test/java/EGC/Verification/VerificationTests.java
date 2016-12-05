@@ -228,8 +228,8 @@ public class VerificationTests {
 		KeyPair keys = RSAUtils.returnKeysRSA();
 		PrivateKey k = keys.getPrivate();
 		
-		String s = EntryPoint.keyToString(k);
-		PrivateKey k2 = EntryPoint.stringToPrivKey(s);
+		String s = KeyManipulator.keyToString(k);
+		PrivateKey k2 = KeyManipulator.stringToPrivKey(s);
 		
 		assertEquals(k, k2);
 	}
@@ -239,8 +239,8 @@ public class VerificationTests {
 		KeyPair keys = RSAUtils.returnKeysRSA();
 		PublicKey k = keys.getPublic();
 		
-		String s = EntryPoint.keyToString(k);
-		PublicKey k2 = EntryPoint.stringToPubKey(s);
+		String s = KeyManipulator.keyToString(k);
+		PublicKey k2 = KeyManipulator.stringToPubKey(s);
 		
 		assertEquals(k, k2);
 	}
