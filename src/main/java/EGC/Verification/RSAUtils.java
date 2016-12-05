@@ -105,49 +105,41 @@ public class RSAUtils {
 	}
 	
 	//cifrado RSA
-	public static byte[] encryptRSA(KeyPair keys,String text){
-		
+	public static byte[] encryptRSA(PublicKey publicKey,String text){
+				
 		byte[] res = null;
 		try {
 			Cipher rsa;
-			
-			PublicKey pubKey = keys.getPublic();
-			
+								
 			rsa = Cipher.getInstance("RSA/ECB/PKCS1Padding");
-			rsa.init(Cipher.ENCRYPT_MODE, pubKey);
-	    
-		
+			rsa.init(Cipher.ENCRYPT_MODE, publicKey);
+			    
+				
 			res = rsa.doFinal(text.getBytes());
 		} catch (IllegalBlockSizeException | BadPaddingException | InvalidKeyException | NoSuchAlgorithmException | NoSuchPaddingException e) {
-			
+					
 			e.printStackTrace();
-		} 
-		
+		} 		
 		return res;
 	}
-	
+			
 	//descifrado RSA
-	public static String decryptRSA(KeyPair keys,byte[] cipherText) throws BadPaddingException{
-		
+	public static String decryptRSA(PrivateKey privateKey, byte[] cipherText) throws BadPaddingException{
+				
 		String res = null;
 		try {
 			Cipher rsa;
-			
-			PrivateKey privKeyFromBytes = keys.getPrivate();
-			
+								
 			rsa = Cipher.getInstance("RSA/ECB/PKCS1Padding");
-			rsa.init(Cipher.DECRYPT_MODE, privKeyFromBytes);
-			
-	    
-		
+			rsa.init(Cipher.DECRYPT_MODE, privateKey);
+					
+			    
 			byte[] bytesDesencriptados = rsa.doFinal(cipherText);
-		    res = new String(bytesDesencriptados);
+			res = new String(bytesDesencriptados);
 		} catch (IllegalBlockSizeException  | InvalidKeyException | NoSuchAlgorithmException | NoSuchPaddingException e) {
-			
+					
 			e.printStackTrace();
 		}
-
-		
 		return res;
 	}
 
@@ -156,7 +148,8 @@ public class RSAUtils {
 		
 		boolean res = true;
 		try {
-			decryptRSA(key, votoCifrado);
+			PrivateKey privKey = key.getPrivate();
+			decryptRSA(privKey, votoCifrado);
 		} catch (BadPaddingException e) {
 			res = false;
 		}

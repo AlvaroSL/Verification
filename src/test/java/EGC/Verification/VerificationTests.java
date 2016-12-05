@@ -71,7 +71,8 @@ public class VerificationTests {
 		
 		KeyPair keys = RSAUtils.returnKeysRSA();
 		KeyPair keysAuxiliar = RSAUtils.returnKeysRSA();
-		byte[] votoCifrado = RSAUtils.encryptRSA(keys, "Esto es una prueba");
+		PublicKey pubKey = keys.getPublic();
+		byte[] votoCifrado = RSAUtils.encryptRSA(pubKey, "Esto es una prueba");
 		boolean comprobacion = RSAUtils.checkVoteRSA(votoCifrado, keys);
 		boolean comprobacionAuxiliar = RSAUtils.checkVoteRSA(votoCifrado, keysAuxiliar);
 		System.out.println("---------------------------KEYS---------------------------");
@@ -105,7 +106,8 @@ public class VerificationTests {
 		System.out.println("");
 		
 		KeyPair keys = RSAUtils.returnKeysRSA();
-		byte[] res = RSAUtils.encryptRSA(keys, "Esto es una prueba");
+		PublicKey pubKey = keys.getPublic();
+		byte[] res = RSAUtils.encryptRSA(pubKey, "Esto es una prueba");
 		System.out.println("----------------------------KEYS--------------------------");
 		System.out.println("--Son las keys con las que hemos encriptado el voto--");
 		System.out.println("Key privada: " + keys.getPrivate());
@@ -123,8 +125,10 @@ public class VerificationTests {
 		System.out.println("");
 		
 		KeyPair keys = RSAUtils.returnKeysRSA();
+		PublicKey pubKey = keys.getPublic();
+		PrivateKey privKey = keys.getPrivate();
 		String entrada="Esto es una prueba";
-		byte[] res = RSAUtils.encryptRSA(keys, entrada);
+		byte[] res = RSAUtils.encryptRSA(pubKey, entrada);
 		System.out.println("----------------------------KEYS--------------------------");
 		System.out.println("----Son las keys con las que hemos encriptado el voto-----");
 		System.out.println("Key privada: " + keys.getPrivate());
@@ -134,7 +138,7 @@ public class VerificationTests {
 		System.out.println("Encriptamos...");
 		System.out.println("Voto encriptado :" + new String(res));
 		System.out.println("Desencriptamos...");
-		String finCorrecto = RSAUtils.decryptRSA(keys, res);
+		String finCorrecto = RSAUtils.decryptRSA(privKey, res);
 		System.out.println("Voto desencriptado: " + finCorrecto);
 		System.out.println("");
 	
