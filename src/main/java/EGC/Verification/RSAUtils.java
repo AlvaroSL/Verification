@@ -17,7 +17,7 @@ import javax.crypto.SecretKey;
 
 public class RSAUtils {
 	
-	//funcion resumen con md5 (text indica el texto que se le aplicara la función resumen)
+	//funcion resumen con md5 (text indica el texto que se le aplicara la funciÃ³n resumen)
 	//hay que pasarle el texto, no el atajo
 	public static byte[] getHashCodeMD5(String text){
 		byte[] resumen = null;
@@ -33,7 +33,7 @@ public class RSAUtils {
 		
 	}
 	
-	//funcion resumen con SHA-1 (text indica el texto que se le aplicara la función resumen)
+	//funcion resumen con SHA-1 (text indica el texto que se le aplicara la funciÃ³n resumen)
 	//hay que pasarle el texto, no el atajo
 	public static byte[] getHashCodeSHA(String text){
 		byte[] resumen = null;
@@ -70,9 +70,9 @@ public class RSAUtils {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-    keyGen.initialize(512);  // tamano clave 512 bits
-    KeyPair clavesRSA = keyGen.generateKeyPair();
-    return clavesRSA;
+	keyGen.initialize(2048);  // tamano clave 2048 bits
+	KeyPair clavesRSA = keyGen.generateKeyPair();
+	return clavesRSA;
 	}
 	
 	
