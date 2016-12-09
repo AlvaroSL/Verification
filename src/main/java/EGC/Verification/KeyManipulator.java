@@ -46,23 +46,29 @@ public class KeyManipulator {
 	
 	//fuente
 	//http://stackoverflow.com/questions/6430841/java-byte-to-byte
-	private static byte[] toByteArray(String in)
+	public static byte[] toByteArray(String in)
 	{
 		
-		String[] piezas = in.split("[, ]");
+		String[] piezas = in.split(",");
 		
 		List<Byte> depurado = new ArrayList<Byte>();
 		for(String s : piezas){
+			if(s.charAt(0) == '['){
+				s = s.substring(1, s.length());
+			}
+			else if(s.charAt(s.length()-1) == ']') {
+				s = s.substring(0, s.length()-1);
+			}
+			
 			if(!s.isEmpty()){
 				depurado.add(Byte.parseByte(s.trim()));
 			}
 		}
-		Byte[] b = (Byte[]) depurado.toArray();
 		
-	    byte[] bytes = new byte[b.length];
+	    byte[] bytes = new byte[depurado.size()];
 
-	    for(int i = 0; i < b.length; i++) {
-	        bytes[i] = b[i];
+	    for(int i = 0; i < depurado.size(); i++){
+	    	bytes[i] = depurado.get(i).byteValue();
 	    }
 
 	    return bytes;

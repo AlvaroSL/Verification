@@ -1,5 +1,14 @@
 package EGC.Verification;
 
+import java.security.KeyPair;
+import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.spec.InvalidKeySpecException;
+import java.util.Arrays;
+
+import javax.crypto.BadPaddingException;
+
 //para exportar .jar ejecutable:
 //-clic derecho en el proyecto en eclipse
 //-Exportar
@@ -13,10 +22,20 @@ public class EntryPoint {
 		try{
 			switch(args[0]){
 			case "cipher":
+				PublicKey pubKey = KeyManipulator.stringToPubKey(args[2]);
+				String cifrado = Arrays.toString(RSAUtils.encryptRSA(pubKey, args[1]));
+				System.out.println(cifrado);
 				break;
 			case "decipher":
+				byte[] bytesCifrados = KeyManipulator.toByteArray(args[1]);
+				PrivateKey privKey = KeyManipulator.stringToPrivKey(args[2]);
+				String descifrado = RSAUtils.decryptRSA(privKey, bytesCifrados);
+				System.out.println(descifrado);
 				break;
 			case "keys":
+				KeyPair keys = RSAUtils.returnKeysRSA();
+				System.out.println(KeyManipulator.keyToString(keys.getPublic()));
+				System.out.println(KeyManipulator.keyToString(keys.getPrivate()));
 				break;
 			default:
 			case "help":
@@ -24,7 +43,10 @@ public class EntryPoint {
 				break;
 			}
 		}
-		catch(ArrayIndexOutOfBoundsException e){
+		catch(ArrayIndexOutOfBoundsException | InvalidKeySpecException | NoSuchAlgorithmException | BadPaddingException e){
+			System.out.println("Error:");
+			e.printStackTrace();
+			
 			showHelp();
 		}
 	}
@@ -37,11 +59,10 @@ public class EntryPoint {
 		System.out.println("cipher <dato> <clave>        Cifra <dato> usando la clave publica RSA <clave>.");
 		System.out.println("decipher <cifrado> <clave>   Descifra <cifrado> usando la clave privada RSA <clave>.");
 		System.out.println("keys                         Genera un par de claves RSA.\n");
-		System.out.println("Sobre las claves:");
-		System.out.println("->Se entregan como representación textual de array de números.");
+		System.out.println("->Las claves y textos cifrados se entregan como representación textual de array de números.");
 		System.out.println("->Ejemplo simplificado: \"[12, -56, 34, 0, 1, 1, -1]\".");
 		System.out.println("->El comando keys devuelve primero la clave publica y despues la privada, ambas con el mismo formato.");
-		System.out.println("->Es importante extraer e introducir las claves copiando todo el texto como en el ejemplo anterior, sin las comillas.");
+		System.out.println("->Es importante rodear de comillas el bloque [...] al introducirlo como parametro, ya que contiene espacios.");
 	}
 	
 }
