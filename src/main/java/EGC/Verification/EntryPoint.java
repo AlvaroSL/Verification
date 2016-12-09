@@ -1,18 +1,5 @@
 package EGC.Verification;
 
-import java.security.Key;
-import java.security.KeyFactory;
-import java.security.NoSuchAlgorithmException;
-import java.security.PrivateKey;
-import java.security.PublicKey;
-import java.security.spec.InvalidKeySpecException;
-import java.security.spec.PKCS8EncodedKeySpec;
-import java.security.spec.X509EncodedKeySpec;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
 //para exportar .jar ejecutable:
 //-clic derecho en el proyecto en eclipse
 //-Exportar
@@ -46,10 +33,15 @@ public class EntryPoint {
 		System.out.println("Uso:");
 		System.out.println("java -jar verification.jar <comando> [parametros]");
 		System.out.println("Comandos:");
-		System.out.println("help                         Muestra esta pagina de ayuda");
-		System.out.println("cipher <dato> <clave>        Cifra <dato> usando la clave publica <clave> mediante RSA");
-		System.out.println("decipher <cifrado> <clave>   Descifra <cifrado> usando la clave privada <clave> mediante RSA");
-		System.out.println("keys                         Genera un par de claves RSA");
+		System.out.println("help                         Muestra esta pagina de ayuda.");
+		System.out.println("cipher <dato> <clave>        Cifra <dato> usando la clave publica RSA <clave>.");
+		System.out.println("decipher <cifrado> <clave>   Descifra <cifrado> usando la clave privada RSA <clave>.");
+		System.out.println("keys                         Genera un par de claves RSA.\n");
+		System.out.println("Sobre las claves:");
+		System.out.println("->Se entregan como representación textual de array de números.");
+		System.out.println("->Ejemplo simplificado: \"[12, -56, 34, 0, 1, 1, -1]\".");
+		System.out.println("->El comando keys devuelve primero la clave publica y despues la privada, ambas con el mismo formato.");
+		System.out.println("->Es importante extraer e introducir las claves copiando todo el texto como en el ejemplo anterior, sin las comillas.");
 	}
 	
 }
