@@ -43,10 +43,13 @@ public class EntryPoint {
 				break;
 			}
 		}
-		catch(ArrayIndexOutOfBoundsException | InvalidKeySpecException | NoSuchAlgorithmException | BadPaddingException e){
+		catch(InvalidKeySpecException | NoSuchAlgorithmException | BadPaddingException e){
 			System.out.println("Error:");
 			e.printStackTrace();
 			
+			showHelp();
+		}
+		catch(ArrayIndexOutOfBoundsException e){			
 			showHelp();
 		}
 	}
@@ -60,9 +63,9 @@ public class EntryPoint {
 		System.out.println("decipher <cifrado> <clave>   Descifra <cifrado> usando la clave privada RSA <clave>.");
 		System.out.println("keys                         Genera un par de claves RSA.\n");
 		System.out.println("->Las claves y textos cifrados se entregan como representación textual de array de números.");
-		System.out.println("->Ejemplo simplificado: \"[12, -56, 34, 0, 1, 1, -1]\".");
-		System.out.println("->El comando keys devuelve primero la clave publica y despues la privada, ambas con el mismo formato.");
-		System.out.println("->Es importante rodear de comillas el bloque [...] al introducirlo como parametro, ya que contiene espacios.");
+		System.out.println("->Ejemplo acortado de texto en este formato: \"[12, -56, 34, 0, 1, 1, -1]\".");
+		System.out.println("->El comando keys devuelve primero la clave publica y despues la privada, ambas con el mismo formato y separadas por un salto de linea.");
+		System.out.println("->Es importante rodear de comillas los bloques [...] al introducirlos como parametro, ya que contienen espacios.");
 	}
 	
 }
