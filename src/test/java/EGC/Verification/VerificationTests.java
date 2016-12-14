@@ -9,6 +9,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.spec.InvalidKeySpecException;
+import java.util.Arrays;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
@@ -41,12 +42,14 @@ public class VerificationTests {
 		KeyPair keys = RSAUtils.returnKeysRSA();
 		System.out.println("----------------------------KEYS--------------------------");
 		System.out.println("-------------Son las keys que hemos generado--------------");
-		System.out.println("Key privada: " + keys.getPrivate());
-		System.out.println("Key publica: " + keys.getPublic());
+		System.out.println("Key privada: " + KeyManipulator.keyToString(keys.getPrivate()));
+		System.out.println("Key publica: " + KeyManipulator.keyToString(keys.getPublic()));
+		assertNotNull(keys.getPrivate());
 		assertNotNull(keys.getPublic());
 		System.out.println("");
 	}
 	
+	// No lo usamos
 	@Test
 	public void testGetKeyDes() {
 		System.out.println("==========================================================");
@@ -56,12 +59,12 @@ public class VerificationTests {
 		
 		System.out.println("----------------Es la key privada generada----------------");
 		SecretKey key = RSAUtils.returnKeyDes();
-		System.out.println("Key privada: " +key);
+		System.out.println("Key privada: " +KeyManipulator.keyToString(key));
 		assertNotNull(key);
 		System.out.println("");
 	}
 
-	
+	//No lo usamos
 	@Test
 	public void testCheckVoteRSA() throws NoSuchAlgorithmException, IOException {
 		System.out.println("==========================================================");
@@ -77,12 +80,12 @@ public class VerificationTests {
 		boolean comprobacionAuxiliar = RSAUtils.checkVoteRSA(votoCifrado, keysAuxiliar);
 		System.out.println("---------------------------KEYS---------------------------");
 		System.out.println("------Son las keys con las que hemos creado el voto-------");
-		System.out.println("Key privada: " + keys.getPrivate());
-		System.out.println("Key publica: " + keys.getPublic());
+		System.out.println("Key privada: " + KeyManipulator.keyToString(keys.getPrivate()));
+		System.out.println("Key publica: " + KeyManipulator.keyToString(keys.getPublic()));
 		System.out.println("");
 		System.out.println("--Keys creadas para la comprobación errónea del checkKey--");
-		System.out.println("Key privada: " + keysAuxiliar.getPrivate());
-		System.out.println("Key publica: " + keysAuxiliar.getPublic());
+		System.out.println("Key privada: " + KeyManipulator.keyToString(keysAuxiliar.getPrivate()));
+		System.out.println("Key publica: " + KeyManipulator.keyToString(keysAuxiliar.getPublic()));
 		System.out.println("----------------------Resultados--------------------------");
 		System.out.println("Comprobación con las keys correctas");
 		if(comprobacion)
@@ -108,12 +111,13 @@ public class VerificationTests {
 		KeyPair keys = RSAUtils.returnKeysRSA();
 		PublicKey pubKey = keys.getPublic();
 		byte[] res = RSAUtils.encryptRSA(pubKey, "Esto es una prueba");
+		assertNotNull(res);
 		System.out.println("----------------------------KEYS--------------------------");
 		System.out.println("--Son las keys con las que hemos encriptado el voto--");
-		System.out.println("Key privada: " + keys.getPrivate());
-		System.out.println("Key publica: " + keys.getPublic());
+		System.out.println("Key privada: " + KeyManipulator.keyToString(keys.getPrivate()));
+		System.out.println("Key publica: " + KeyManipulator.keyToString(keys.getPublic()));
 		System.out.println("----------------------Resultados--------------------------");
-		System.out.println("Voto encriptado: " + new String(res));
+		System.out.println("Voto encriptado: " + Arrays.toString(res));
 		System.out.println("");
 	}
 
@@ -131,20 +135,22 @@ public class VerificationTests {
 		byte[] res = RSAUtils.encryptRSA(pubKey, entrada);
 		System.out.println("----------------------------KEYS--------------------------");
 		System.out.println("----Son las keys con las que hemos encriptado el voto-----");
-		System.out.println("Key privada: " + keys.getPrivate());
-		System.out.println("Key publica: " + keys.getPublic());
+		System.out.println("Key privada: " + KeyManipulator.keyToString(keys.getPrivate()));
+		System.out.println("Key publica: " + KeyManipulator.keyToString(keys.getPublic()));
 		System.out.println("----------------------Resultados--------------------------");
 		System.out.println("Voto entrada: " + entrada);
 		System.out.println("Encriptamos...");
-		System.out.println("Voto encriptado :" + new String(res));
+		System.out.println("Voto encriptado :" + Arrays.toString(res));
 		System.out.println("Desencriptamos...");
-		String finCorrecto = RSAUtils.decryptRSA(privKey, res);
-		System.out.println("Voto desencriptado: " + finCorrecto);
+		String salida = RSAUtils.decryptRSA(privKey, res);
+		assertNotNull(salida);
+		System.out.println("Voto desencriptado: " + salida);
+		assertEquals(entrada, salida);
 		System.out.println("");
 	
 		
 	}
-
+	// No lo usamos
 	@Test
 	public void testEncryptDES() throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, IOException {
 		System.out.println("==========================================================");
@@ -155,16 +161,17 @@ public class VerificationTests {
 		System.out.println("----------------Es la key privada generada----------------");
 		SecretKey key = RSAUtils.returnKeyDes();
 		String entrada="Esto es una prueba";
-		System.out.println("Key privada: " +key);
+		System.out.println("Key privada: " + KeyManipulator.keyToString(key));
 		assertNotNull(key);
 		System.out.println("----------------------Resultados--------------------------");
 		System.out.println("Voto de entrada: " + entrada);
 		byte[] enc = RSAUtils.encryptDES(key, entrada);
 		assertNotNull(enc);
-		System.out.println("Voto encriptado: " + new String(enc));
+		System.out.println("Voto encriptado: " + Arrays.toString(enc));
 		System.out.println("");
 	}
 
+	//No lo usamos
 	@Test
 	public void testDecryptDES() throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, IOException {
 		System.out.println("==========================================================");
@@ -174,13 +181,13 @@ public class VerificationTests {
 
 		System.out.println("----------------Es la key privada generada----------------");
 		SecretKey key = RSAUtils.returnKeyDes();
-		System.out.println("Key privada: " +key);
+		System.out.println("Key privada: " + KeyManipulator.keyToString(key));
 		System.out.println("----------------------Resultados--------------------------");
 		String entrada= "Esto es una prueba";
 		System.out.println("Voto entrada: " + entrada);
 		System.out.println("Encriptamos...");
 		byte[] enc = RSAUtils.encryptDES(key,entrada);
-		System.out.println("Voto encriptado :" + new String(enc));
+		System.out.println("Voto encriptado :" + Arrays.toString(enc));
 		System.out.println("Desencriptamos...");
 		String fin = RSAUtils.decryptDES(key, enc);
 		assertNotNull(fin);
@@ -189,6 +196,7 @@ public class VerificationTests {
 	
 	}
 
+	//No lo usuamos
 	@Test
 	public void testGetMD5() {
 		System.out.println("==========================================================");
@@ -200,11 +208,12 @@ public class VerificationTests {
 		byte[] res = RSAUtils.getHashCodeMD5(entrada);
 		System.out.println("String entrada: " + entrada);
 		System.out.println("Encriptamos...");
-		System.out.println("String salida: " + new String(res));
+		System.out.println("String salida: " + Arrays.toString(res));
 		assertNotNull(new String(res));
 		System.out.println("");
 	}
-
+	
+	//No lo usamos
 	@Test()
 	public void testGetSHA1() {
 		System.out.println("==========================================================");
@@ -216,26 +225,36 @@ public class VerificationTests {
 		byte[] res = RSAUtils.getHashCodeSHA(entrada);
 		System.out.println("String entrada: " + entrada);
 		System.out.println("Encriptamos...");
-		System.out.println("String salida: " + new String(res));
+		System.out.println("String salida: " + Arrays.toString(res));
 		assertNotNull(new String(res));
 		System.out.println("");
 	}
 	
-	//añadidos en el trabajo de 2016/17
 	
 	@Test
 	public void testPrivKeyStringConversion() throws NoSuchAlgorithmException, InvalidKeySpecException{
+		System.out.println("==========================================================");
+		System.out.println("==============TEST 10 (KEY TO STRING PRIVATE)=============");
+		System.out.println("==========================================================");
+		System.out.println("");
+		
 		KeyPair keys = RSAUtils.returnKeysRSA();
 		PrivateKey k = keys.getPrivate();
 		
 		String s = KeyManipulator.keyToString(k);
 		PrivateKey k2 = KeyManipulator.stringToPrivKey(s);
-		
 		assertEquals(k, k2);
+		System.out.println("Key publica: "+ KeyManipulator.keyToString(k));
+		System.out.println("Key privada pasada a string: " + s);
+		System.out.println("");
 	}
 	
 	@Test
 	public void testPubKeyStringConversion() throws InvalidKeySpecException, NoSuchAlgorithmException{
+		System.out.println("==========================================================");
+		System.out.println("==============TEST 11 (KEY TO STRING PUBLIC)=============");
+		System.out.println("==========================================================");
+		System.out.println("");
 		KeyPair keys = RSAUtils.returnKeysRSA();
 		PublicKey k = keys.getPublic();
 		
@@ -243,6 +262,10 @@ public class VerificationTests {
 		PublicKey k2 = KeyManipulator.stringToPubKey(s);
 		
 		assertEquals(k, k2);
+		System.out.println("Key publica: "+ KeyManipulator.keyToString(k));
+		System.out.println("Key publica pasada a string: " + s);
+		System.out.println("");
+		
 	}
 
 }
