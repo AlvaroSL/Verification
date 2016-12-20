@@ -3,7 +3,6 @@ package EGC.Verification;
 import java.security.InvalidKeyException;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
@@ -11,57 +10,20 @@ import java.security.PublicKey;
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
-import javax.crypto.SecretKey;
 
 public class RSAUtils {
 	
-	//funcion resumen con md5 (text indica el texto que se le aplicara la funciÃ³n resumen)
-	//hay que pasarle el texto, no el atajo
-	public static byte[] getHashCodeMD5(String text){
-		byte[] resumen = null;
-		 MessageDigest messageDigest = null;
-		try {
-			messageDigest = MessageDigest.getInstance("MD5");
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		} 
-		  messageDigest.update(text.getBytes());
-		  resumen = messageDigest.digest();
-		 return resumen;
-		
-	}
-	
-	//funcion resumen con SHA-1 (text indica el texto que se le aplicara la funciÃ³n resumen)
-	//hay que pasarle el texto, no el atajo
-	public static byte[] getHashCodeSHA(String text){
-		byte[] resumen = null;
-		 MessageDigest messageDigest = null;
-		try {
-			messageDigest = MessageDigest.getInstance("SHA");
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		} 
-		  messageDigest.update(text.getBytes());
-		  resumen = messageDigest.digest();
-		 return resumen;
-	}
+	// El método getHashCodeMD5 ha sido borrado porque no necesitamos su aplicación.
+	// El método getHashCodeSHA ha sido borrado porque no necesitamos su aplicación.
+	// 		ya que este año no usamos la encriptación SHA
+	// El método returnKeyDES ha sido borrado porque no necesitamos su aplicación.
+	// 		ya que este año no usamos la encriptación DES
+	// Los métodos encryptDES y desencryptDES han sido borrado porque no necesitamos su aplicación.
+	// 		ya que este año no usamos la encriptación DES
 	
 	
-	//genera una clave para DES y la devuelve
-	public static SecretKey returnKeyDes(){
-		KeyGenerator generadorDES = null;
-		try {
-			generadorDES = KeyGenerator.getInstance("DES");
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		generadorDES.init(56); // clave de 56 bits
-		SecretKey clave = generadorDES.generateKey();
-		return clave;
-	}
+	// Método que devuelve un par de keys aleatorias(publica y privada) 
 	public static KeyPair returnKeysRSA(){
 	KeyPairGenerator keyGen = null;
 	try {
@@ -74,37 +36,9 @@ public class RSAUtils {
 	KeyPair clavesRSA = keyGen.generateKeyPair();
 	return clavesRSA;
 	}
+
 	
-	
-	// cifrando en des, se le debe pasar el resumen(de una funcion resumen como MD5)
-	//como text
-	public static byte[] encryptDES(SecretKey key, String text) 
-			throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException{
-		Cipher cifrador = Cipher.getInstance("DES/ECB/PKCS5Padding");
-		// Algoritmo DES
-		// Modo : ECB (Electronic Code Book)
-		// Relleno : PKCS5Padding
-		//inicializo en modo cifrado
-		cifrador.init(Cipher.ENCRYPT_MODE, key);
-		//paso texto a byte y cifro
-		byte[] textocifrado = cifrador.doFinal(text.getBytes());
-		return textocifrado;
-	}
-	// el texto cifrado es la cadena resumen del texto original
-	public static String decryptDES(SecretKey key, byte[] textcifrado) 
-			throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException{
-		Cipher cifrador = Cipher.getInstance("DES/ECB/PKCS5Padding");
-		// Algoritmo DES
-		// Modo : ECB (Electronic Code Book)
-		// Relleno : PKCS5Padding
-		//inicializo en modo DEScifrado (QUE CHISTOSO SOY!!)
-		cifrador.init(Cipher.DECRYPT_MODE, key);
-		//paso cadena byte[] y descifro
-		String textodesencriptado = new String(cifrador.doFinal(textcifrado));
-		return textodesencriptado;
-	}
-	
-	//cifrado RSA
+	// Dado un voto(string) y su clave publica encriptamos el voto 
 	public static byte[] encryptRSA(PublicKey publicKey,String text){
 				
 		byte[] res = null;
@@ -123,7 +57,7 @@ public class RSAUtils {
 		return res;
 	}
 			
-	//descifrado RSA
+	// Dado un voto cifrado(byte[]) y su clave privada desencriptamos el voto
 	public static String decryptRSA(PrivateKey privateKey, byte[] cipherText) throws BadPaddingException{
 				
 		String res = null;
@@ -143,7 +77,8 @@ public class RSAUtils {
 		return res;
 	}
 
-	
+	// No lo usamos actualmente pero puede ser que lo necesitemos en un futuro.
+	// Comprueba que las keys pasadas por parametros pertenecen al voto cifrado
 	public static boolean checkVoteRSA(byte[] votoCifrado, KeyPair key) {
 		
 		boolean res = true;
