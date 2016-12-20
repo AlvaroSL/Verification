@@ -16,6 +16,9 @@ import javax.crypto.BadPaddingException;
 //-Select the export destination: <camino>/verification.jar
 //-dando Next hasta la ultima pagina: Select the class of the application entry point:Browse y se marca esta clase.
 //-Finish.
+
+//para generar con maven:
+//mvn clean compile package assembly:assembly
 public class EntryPoint {
 	
 	public static void main(String[] args) {
