@@ -27,14 +27,12 @@ public class EntryPoint {
 			switch(args[0]){
 			case "cipher":
 				PublicKey pubKey = KeyManipulator.stringToPubKey(args[2]);
-				//String cifrado = Arrays.toString(RSAUtils.encryptRSA(pubKey, args[1]));				
 				String cifrado = Base64.getEncoder().encodeToString(RSAUtils.encryptRSA(pubKey, args[1]));
 				System.out.println(cifrado);
 				break;
 			case "decipher":
 				byte[] bytesCifrados = KeyManipulator.toByteArray(args[1]);
 				PrivateKey privKey = KeyManipulator.stringToPrivKey(args[2]);
-				//String descifrado = RSAUtils.decryptRSA(privKey, bytesCifrados);		
 				String descifrado = new String(Base64.getDecoder().decode(RSAUtils.decryptRSA(privKey, bytesCifrados)));
 				System.out.println(descifrado);
 				break;
