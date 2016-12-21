@@ -58,6 +58,7 @@ public class EntryPoint {
 		}
 	}
 	
+	//muestra el manual de uso en caso de invocación de help 
 	private static void showHelp(){
 		System.out.println("Uso:");
 		System.out.println("java -jar verification.jar <comando> [parametros]");
