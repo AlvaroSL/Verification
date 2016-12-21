@@ -1,37 +1,81 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-     
-  <groupId>EGC</groupId>
-  <artifactId>Verificacion</artifactId>
-  <version>2.1</version>
-  <packaging>jar</packaging>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-  <name>app</name>
-  <url>http://maven.apache.org</url>
-  
-  	<dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.11</version>
-      <scope>test</scope>
-    </dependency>
-    
-    <dependency>
-	<groupId>org.codehaus.plexus</groupId>
-	<artifactId>plexus-utils</artifactId>
-	<version>1.5.6</version>
-	</dependency>
-    
-  </dependencies>
-  
-<distributionManagement>
-    <repository>
-        <id>user</id>
-        <name>user</name>
-        <url>http://localhost:8081/artifactory/libs-release-local</url>
-    </repository>
-</distributionManagement>
-  
+	<groupId>EGC</groupId>
+	<artifactId>Verificacion</artifactId>
+	<version>2.1</version>
+	<packaging>jar</packaging>
+
+	<name>app</name>
+	<url>http://maven.apache.org</url>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.codehaus.plexus</groupId>
+			<artifactId>plexus-utils</artifactId>
+			<version>1.5.6</version>
+		</dependency>
+
+	</dependencies>
+
+	<!-- Fuente: http://stackoverflow.com/questions/574594/how-can-i-create-an-executable-jar-with-dependencies-using-maven -->
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>EGC.Verification.EntryPoint</mainClass>
+						</manifest>
+					</archive>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+					<!-- para evitar un sufijo autogenerado en el nombre del jar -->
+					<appendAssemblyId>false</appendAssemblyId>
+					
+					<!-- Fuente: http://stackoverflow.com/questions/4238944/controlling-maven-final-name-of-jar-artifact -->
+					<finalName>verification</finalName>
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-assembly</id> <!-- this is used for inheritance merges -->
+						<phase>package</phase> <!-- bind to the packaging phase -->
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			
+			<!-- Fuente: http://stackoverflow.com/questions/10586384/why-is-maven-generating-this-error-is-not-supported-in-source-1-5 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<distributionManagement>
+		<repository>
+			<id>user</id>
+			<name>user</name>
+			<url>http://localhost:8081/artifactory/libs-release-local</url>
+		</repository>
+	</distributionManagement>
+
 </project>
