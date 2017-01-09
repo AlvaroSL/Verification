@@ -16,7 +16,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class VerificationTests {
+public class VerificationTest {
 
 	@Before
 	public void setUp() throws Exception {
