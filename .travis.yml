@@ -8,6 +8,18 @@ sudo: false
 script:
   - mvn clean test
   - mvn clean compile package assembly:assembly
+  
+deploy:
+    provider: releases
+    api_key:
+        secure: d4400b620e7c1fd755241335c4a1bdee2076bdb5 
+    file: /home/travis/build/AlvaroSL/Verification/target/verification.jar
+    skip_cleanup: true
+    on:
+        repo: AlvaroSL/Verification
+        tags: true
+        branch: developer
+        overwrite: true
 
 notifications:
     - email: false  # Desactivamos las notificaciones por email para evitar spam
