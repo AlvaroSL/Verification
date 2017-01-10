@@ -12,8 +12,8 @@ script:
 deploy:
     provider: releases
     user: AlvaroSL
-    password: OdMGLoEsrngDpQOau8Ku9Pt8weOLtEA6wUrkPbWxN9WQttqlEKAJgDexz6fGMq+AV38q3LJxtBoY+8jOk2u6+QXk2KX7t6GYiKLpALl7BMDTAHmFwA4aGT787fIEABDlWRZF2DZqU3ln/62MDezCXHO0RTRnQXYm9amxbo+4OA/3CHTRpEtqFfoUIoFx/oc7t1I6Kc35WAIduHWjlaIKaIBCqOr8zQW1xhXIBSY31IncPGI2+ss6TVs5zR0B8u/rfR6gNRhchRGf2cea99kFPFph8bPuSFeyZt7JKKhFUHb/FKPD5lKsVh4GEfXWtNGHCLkGSnnSy5K7mzFYnOKnNCtNU+ldbfCfdmj2RRcMiYouhtkz0ZLV32YssJwmeFxwa9HxrjuJ5+DkWDh8TCKOJ80gEzAbas1doV2HRCn2xc3yXpyK394XaPRwKReDe/Ms2qnKsFyz8k/Hbv7VmzzK01xrPM3PDiuPoZgaH5QZSdDlCfOaeaGaeraRu3s9+8zpdj5bBYJEaxifk81UiSzC2uyeuWIGoFc+Qlk6MGriShOqscUf9HFvb1+44RPa3fGLNS2pEx5mHcMCRDkHAV+d1Tv4AKcbky4Mkod/41neg+eE2mZcQFfhzBcegM3zMtzka5O640tL2TqmAAqGtEQSPpxujI+LXsgwPrUauhmFhN8=
-    file: /home/travis/build/AlvaroSL/Verification/target/verification.jar
+    api_key:
+        secure: ca4a90f8d26db5ec6d10f5d7838a53b92d776494
     skip_cleanup: true
     on:
         repo: AlvaroSL/Verification
