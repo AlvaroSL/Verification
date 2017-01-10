@@ -31,9 +31,9 @@ public class EntryPoint {
 				System.out.println(cifrado);
 				break;
 			case "decipher":
-				byte[] bytesCifrados = KeyManipulator.toByteArray(args[1]);
+				byte[] bytesCifrados = Base64.getDecoder().decode(args[1]);
 				PrivateKey privKey = KeyManipulator.stringToPrivKey(args[2]);
-				String descifrado = new String(Base64.getDecoder().decode(RSAUtils.decryptRSA(privKey, bytesCifrados)));
+				String descifrado = RSAUtils.decryptRSA(privKey, bytesCifrados);
 				System.out.println(descifrado);
 				break;
 			case "keys":
