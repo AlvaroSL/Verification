@@ -58,7 +58,7 @@ public class EntryPoint {
 		}
 	}
 	
-	//muestra el manual de uso en caso de invocación de help 
+	//muestra el manual de uso en caso de invocaciÃ³n de help 
 	private static void showHelp(){
 		System.out.println("Uso:");
 		System.out.println("java -jar verification.jar <comando> [parametros]");
@@ -67,10 +67,8 @@ public class EntryPoint {
 		System.out.println("cipher <dato> <clave>        Cifra <dato> usando la clave publica RSA <clave>.");
 		System.out.println("decipher <cifrado> <clave>   Descifra <cifrado> usando la clave privada RSA <clave>.");
 		System.out.println("keys                         Genera un par de claves RSA.\n");
-		System.out.println("->Las claves y textos cifrados se entregan como representación textual de array de números.");
-		System.out.println("->Ejemplo acortado de texto en este formato: \"[12, -56, 34, 0, 1, 1, -1]\".");
+		System.out.println("->Las claves y textos cifrados se entregan como representaciÃ³n textual en Base64.");
 		System.out.println("->El comando keys devuelve primero la clave publica y despues la privada, ambas con el mismo formato y separadas por un salto de linea.");
-		System.out.println("->Es importante rodear de comillas los bloques [...] al introducirlos como parametro, ya que contienen espacios.");
 	}
 	
 }
