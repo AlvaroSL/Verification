@@ -6,20 +6,7 @@ jdk:
 sudo: false
 
 script:
-  - mvn clean test
-  - mvn clean compile package assembly:assembly
-  
-deploy:
-    provider: releases
-    user: AlvaroSL
-    api_key:
-        secure: ca4a90f8d26db5ec6d10f5d7838a53b92d776494
-    skip_cleanup: true
-    on:
-        repo: AlvaroSL/Verification
-        tags: false
-        branch: developer
-        overwrite: true
+  - mvn clean test 
 
 notifications:
     - email: false  # Desactivamos las notificaciones por email para evitar spam
