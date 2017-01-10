@@ -5,4 +5,10 @@ jdk:
   - oraclejdk8
 
 script:
-  - mvn test -f pom.xml
+  - mvn clean test
+
+sudo:
+    - false
+
+notifications:
+    - email: false  # Desactivamos las notificaciones por email para evitar spam
