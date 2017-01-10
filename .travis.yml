@@ -11,7 +11,7 @@ script:
   
 deploy:
     provider: releases
-    api_key: b004ea3d06c40a5dc96cf941c073d8f2ff785808
+    api_key:  f5d501575052042a73e59be431b02899bc91ec25  
     file: /home/travis/build/AlvaroSL/Verification/target/verification.jar
     skip_cleanup: true
     on:
